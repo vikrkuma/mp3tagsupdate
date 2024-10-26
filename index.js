@@ -2,19 +2,20 @@ const fs = require("fs");
 const path = require("path");
 const NodeID3 = require("node-id3");
 
-const srcDir = "/Users/vikrant/Desktop/MP3/Punjabi";
-const dstDir = "./Converted/Punjabi/";
-const albumName = "Punjabi Songs";
+const srcDir = "/Users/vikrant/Desktop/MP3/Shri Lata Mangeshkar Songs";
+const dstDir = "./Converted/Shri Lata Mangeshkar Songs/";
+const albumName = "Shri Lata Mangeshkar Songs";
 
 const DEBUG = false;
 const SORT_BY_CREATION_DATE = false;
+const APPEND_FILE_NUMBER = false;
 
 let fileNumber = 1;
 
 function addFileDetails(file) {
   const filePath = path.join(srcDir, file);
   return {
-    file,
+    file: path.basename(file),
     path: filePath,
     ext: path.extname(file),
     stat: fs.statSync(filePath),
@@ -77,6 +78,7 @@ function getNewFileName(file, ext) {
     .replace(new RegExp("_", "g"), "-")
     .replace(new RegExp("-", "g"), " ")
     .replace("Songspkred.co", "")
+    .replace("I Audio Song Juke Box", "")
     .replace("(DjPunjab.Com)", "")
     .replace("(Pagalworld.pw)", "")
     .replace("(PagalWorld)", "")
@@ -85,6 +87,8 @@ function getNewFileName(file, ext) {
     .replace("128 kbps sound", "")
     .replace("128 Kbps", "")
     .replace("CKNG", "")
+    .replace("(online Audio Convertercom)", "")
+    .replace("SikhSangeetCom", "")
     .replace("www.oldisgold.co", "")
     .replace(".in", "")
     .replace("[wwwDJMazaCom]", "")
@@ -118,13 +122,17 @@ function getNewFileName(file, ext) {
     .replace(/  +/g, " ")
     .trim();
   const fileNumberString = `${fileNumber++}`.padStart(3, "0");
+  if (APPEND_FILE_NUMBER) {
   return `${fileNumberString} ${capitalize(fileName)}${ext}`;
+  } else {
+    return `${capitalize(fileName)}${ext}`;
+  }
 }
 
 async function main() {
   fs.mkdirSync(dstDir, {recursive: true});
   const files = fs
-    .readdirSync(srcDir)
+    .readdirSync(srcDir, {recursive: true})
     .map(addFileDetails)
     .filter(filterMp3Files);
 
