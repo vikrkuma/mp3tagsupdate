@@ -2,9 +2,9 @@ const fs = require("fs");
 const path = require("path");
 const NodeID3 = require("node-id3");
 
-const srcDir = "/Users/vikrant/Desktop/MP3/Shri Lata Mangeshkar Songs";
-const dstDir = "./Converted/Shri Lata Mangeshkar Songs/";
-const albumName = "Shri Lata Mangeshkar Songs";
+const srcDir = "/Users/vikrant/Desktop/Bhajans";
+const dstDir = "./Converted/Bhajans/";
+const albumName = "Bhajans";
 
 const DEBUG = false;
 const SORT_BY_CREATION_DATE = false;
@@ -50,6 +50,9 @@ function copyFile(fileObj) {
     tags.performerInfo = "";
     tags.composer = "";
     tags.comment = {};
+    tags.artist = "";
+    tags.originalArtist = "";
+    tags.conductor = "";
     tags.performerInfo ="";
     tags.composer = "";
     tags.remixArtist = "";
