@@ -3,7 +3,7 @@ const path = require("path");
 const NodeID3 = require("node-id3");
 
 const srcDir = "/Users/vikrant/Desktop/MP3/English";
-const dstDir = "./Converted/English/";
+const dstDir = "/Users/vikrant/Desktop/MP3/Converted/English/";
 const albumName = "English";
 
 const DEBUG = false;
